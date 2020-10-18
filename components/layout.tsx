@@ -4,7 +4,7 @@ import utilStyles from "../styles/utils.module.scss";
 import Link from "next/link";
 
 const name = "Rodrigo E. Gimenez";
-export const siteTitle = "The Coding Star Stuff";
+export const siteTitle = "The Coding Star-Stuff";
 
 export default function Layout({
   children,
@@ -34,6 +34,14 @@ export default function Layout({
       <header className={styles.header}>
         {home ? (
           <>
+            <div className={utilStyles.quote}>
+              <blockquote>
+                <p className={utilStyles.lightText}>
+                  "The cosmos is also within us, we're made of star stuff,"
+                </p>
+                <cite>Carl Sagan</cite>
+              </blockquote>
+            </div>
             <h1 className={utilStyles.heading2Xl}>{siteTitle}</h1>
           </>
         ) : (
@@ -46,6 +54,13 @@ export default function Layout({
           </>
         )}
       </header>
+      {!home && (
+        <div className={styles.backToHome}>
+          <Link href="/">
+            <a>← Back to home</a>
+          </Link>
+        </div>
+      )}
       <main>{children}</main>
       {!home && (
         <div className={styles.backToHome}>

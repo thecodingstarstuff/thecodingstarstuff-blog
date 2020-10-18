@@ -30,9 +30,12 @@ const Post = ({
     title: string;
     date: string;
     contentHtml: string;
+    keywords: [string];
+    author: string;
+    authorLink: string;
+    firstOn: string;
   };
 }) => {
-  console.log(postData);
   return (
     <Layout>
       <Head>
@@ -40,7 +43,22 @@ const Post = ({
       </Head>
       <h1 className={utilStyles.headingXl}>{postData.title}</h1>
       <div className={utilStyles.lightText}>
+        by <a href={postData.authorLink}>{postData.author}</a>
+      </div>
+      <div className={utilStyles.lightText}>
         <Date dateString={postData.date} />
+      </div>
+      <div className={utilStyles.lightText}>
+        {postData.firstOn && (
+          <div className={utilStyles.lightText}>
+            First on <a href={postData.firstOn}>{postData.firstOn}</a>
+          </div>
+        )}
+        <ul className={utilStyles.keywords}>
+          {postData.keywords.map((keyword) => (
+            <li key={keyword}>#{keyword}</li>
+          ))}
+        </ul>
       </div>
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
     </Layout>

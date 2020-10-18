@@ -23,6 +23,8 @@ export default function Home({
       id: string;
       date: string;
       title: string;
+      author: string;
+      authorLink: string;
     }
   ];
 }) {
@@ -31,17 +33,19 @@ export default function Home({
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}>
-        <p>The Coding Starstuff Blog - Coming Soon</p>
-      </section>
+      <section className={utilStyles.headingMd}></section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <h2 className={utilStyles.headingLg}>Posts</h2>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
+          {allPostsData.map(({ id, date, title, author, authorLink }) => (
             <li className={utilStyles.listItem} key={id}>
               <Link href={`/posts/${id}`}>
                 <a>{title}</a>
               </Link>
+              <br />
+              <small className={utilStyles.lightText}>
+                by <a href={authorLink}>{author}</a>
+              </small>
               <br />
               <small className={utilStyles.lightText}>
                 <Date dateString={date} />

@@ -50,3 +50,56 @@
 .lightText {
   color: #999;
 }
+
+.keywords {
+  width: 100%;
+  margin-left: 0;
+  padding-left: 0;
+  li {
+    display: inline;
+    margin: 10px;
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+}
+$bg: #fff;
+
+.quote {
+  display: inline-block;
+  margin: 1em;
+  overflow: hidden;
+  font-size: small;
+  blockquote {
+    background-color: $bg;
+    border: solid 2px #757575;
+    display: inline-block;
+    margin: 0;
+    padding: 0.5em;
+    position: relative;
+    &:before {
+      background-color: $bg;
+      bottom: -10%;
+      content: "";
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: -10%;
+      transform: rotate(-15deg) skew(5deg);
+    }
+    cite {
+      margin-top: -0.5rem;
+      padding-top: 0;
+      display: block;
+      font-style: italic;
+      text-align: right;
+      &:before {
+        content: "- ";
+      }
+    }
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
