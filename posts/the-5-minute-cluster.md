@@ -8,8 +8,7 @@ firstOn: https://dev.to/rodrigoegimenez/the-5-minute-cluster-1oih
 ---
 
 ```bash
-ansible-playbook -i hosts swarm-bootstrap.yml  \
-    61,38s user 14,61s system 25% cpu 5:00,57 total
+ansible-playbook -i hosts swarm-bootstrap.yml 61,38s user 14,61s system 25% cpu 5:00,57 total
 ```
 
 Being a DevOps enthusiast I am always looking forward to testing and studying new tech as I discover them. On top of that being a Linux user for more than 20 years has made me savvy to know how stuff work to the very basic.
