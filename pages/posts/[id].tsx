@@ -4,7 +4,7 @@ import Layout from "../../components/layout";
 
 import { getAllPostIds, getPostData } from "../../lib/posts";
 
-import utilStyles from '../../styles/utils.module.scss'
+import utilStyles from "../../styles/utils.module.scss";
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: { params: { id: string } }) {
   const postData = await getPostData(params.id);
   return {
     props: {
@@ -23,11 +23,21 @@ export async function getStaticProps({ params }) {
   };
 }
 
-const FirstPost = ({ postData }) => {
+const Post = ({
+  postData,
+}: {
+  postData: {
+    title: string;
+    date: string;
+    contentHtml: string;
+  };
+}) => {
   console.log(postData);
   return (
     <Layout>
-      <Head><title>{postData.title}</title></Head>
+      <Head>
+        <title>{postData.title}</title>
+      </Head>
       <h1 className={utilStyles.headingXl}>{postData.title}</h1>
       <div className={utilStyles.lightText}>
         <Date dateString={postData.date} />
@@ -37,4 +47,4 @@ const FirstPost = ({ postData }) => {
   );
 };
 
-export default FirstPost;
+export default Post;
