@@ -30,6 +30,7 @@ export function getSortedPostsData() {
         author: string;
         authorLink: string;
         firstOn: string;
+        updated: string;
       }),
       keywords,
     };
