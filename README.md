@@ -1,1 +1,3 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+# The Coding Star-Stuff Blog
+
+This is the source code for the blog hosted at https://blog.thecodingstarstuff.eu.
