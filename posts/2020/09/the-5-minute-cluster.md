@@ -8,7 +8,7 @@ firstOn: https://dev.to/rodrigoegimenez/the-5-minute-cluster-1oih
 ---
 
 ```bash
-ansible-playbook -i hosts swarm-bootstrap.yml 61,38s user 14,61s system 25% cpu 5:00,57 total
+$ ansible-playbook -i hosts swarm-bootstrap.yml 61,38s user 14,61s system 25% cpu 5:00,57 total
 ```
 
 Being a DevOps enthusiast I am always looking forward to testing and studying new tech as I discover them. On top of that being a Linux user for more than 20 years has made me savvy to know how stuff work to the very basic.
@@ -22,14 +22,14 @@ To run this you will need, first, a set of Linux Servers (VM or Bare Metal). You
 Once you have all your servers set up, including ssh access to them, clone the [repo](https://github.com/rodrigoegimenez/ansible-docker-swarm-cluster) to your local machine,
 
 ```bash
-git clone https://github.com/rodrigoegimenez/ansible-docker-swarm-cluster.git
-cd ansible-docker-swarm-cluster
+$ git clone https://github.com/rodrigoegimenez/ansible-docker-swarm-cluster.git
+$ cd ansible-docker-swarm-cluster
 ```
 
 Add your servers info to the `hosts` file, and finally run the main playbook,
 
 ```bash
-ansible-playbook -i hosts swarm-bootstrap.yml
+$ ansible-playbook -i hosts swarm-bootstrap.yml
 ```
 
 sit back and relax. When installing the services ansible will ask you questions like the domain to use (ie. traefik.yoursite.com) and credentials for some of these services. Make sure you are pointing these domains to the master node of your cluster.
