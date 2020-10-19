@@ -34,6 +34,8 @@ const Post = ({
     author: string;
     authorLink: string;
     firstOn: string;
+    draft: boolean;
+    updated: string;
   };
 }) => {
   return (
@@ -45,8 +47,9 @@ const Post = ({
       <div className={utilStyles.lightText}>
         by <a href={postData.authorLink}>{postData.author}</a>
       </div>
+      {postData.draft && <div className={utilStyles.lightText}><small>Keep in mind this is a draft, make sure to check out later for the final version.</small></div>}
       <div className={utilStyles.lightText}>
-        <Date dateString={postData.date} />
+        <Date dateString={postData.date} />{postData.updated && <span>. Updated on: <Date dateString={postData.updated} /></span>}
       </div>
       <div className={utilStyles.lightText}>
         {postData.firstOn && (
@@ -61,6 +64,7 @@ const Post = ({
         </ul>
       </div>
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      {postData.draft && <div className={utilStyles.lightText}><small>Keep in mind this is a draft, make sure to check out later for the final version.</small></div>}
     </Layout>
   );
 };

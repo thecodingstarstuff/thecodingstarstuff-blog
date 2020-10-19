@@ -1,10 +1,10 @@
-import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
-import utilStyles from "../styles/utils.module.scss";
-import Link from "next/link";
-import Date from "../components/date";
+import Head from 'next/head';
+import Layout, { siteTitle } from '../components/layout';
+import utilStyles from '../styles/utils.module.scss';
+import Link from 'next/link';
+import Date from '../components/date';
 
-import { getSortedPostsData } from "../lib/posts";
+import { getSortedPostsData } from '../lib/posts';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -25,6 +25,7 @@ export default function Home({
       title: string;
       author: string;
       authorLink: string;
+      draft: boolean;
     }
   ];
 }) {
@@ -33,15 +34,23 @@ export default function Home({
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}></section>
+      <section className={utilStyles.headingMd}>
+        <p>This is a simple blog developed using{' '}
+        <a href="https://nextjs.org/learn/basics/create-nextjs-app">
+          NextJS' tutorial
+        </a>
+        . The idea behind this blog is to have a place to group all my guides and
+        posts for future reference. But since they may be of use to
+        others cruising similar paths as mine I've decided to make it public.</p>
+      </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Posts</h2>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title, author, authorLink }) => (
+          {allPostsData.map(({ id, date, title, author, authorLink, draft }) => (
             <li className={utilStyles.listItem} key={id}>
               <Link href={`/posts/${id}`}>
-                <a>{title}</a>
-              </Link>
+                <a>{title}</a> 
+              </Link> {draft && `(draft)`}
               <br />
               <small className={utilStyles.lightText}>
                 by <a href={authorLink}>{author}</a>
