@@ -3,7 +3,7 @@ title: Building a microservices architecture using django
 author: Rodrigo E. Gimenez
 authorLink: https://github.com/rodrigoegimenez
 date: "2020-10-18"
-# updated: "2020-10-25"
+updated: "2020-10-19"
 keywords: django, microservices, rest
 draft: true
 ---
