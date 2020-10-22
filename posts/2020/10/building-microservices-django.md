@@ -1,5 +1,6 @@
 ---
-title: Building a microservices architecture using django
+title: Part 1 - Introduction
+series: Building a microservice architecture using django
 author: Rodrigo E. Gimenez
 authorLink: https://github.com/rodrigoegimenez
 date: "2020-10-18"
