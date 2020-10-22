@@ -1,10 +1,12 @@
-import Head from "next/head";
-import Date from "../../components/date";
-import Layout from "../../components/layout";
+import { getURL } from 'next/dist/next-server/lib/utils';
+import Head from 'next/head';
+import Date from '../../components/date';
+import Layout from '../../components/layout';
 
-import { getAllPostIds, getPostData } from "../../lib/posts";
+import { getAllPostIds, getPostData } from '../../lib/posts';
+import postData from '../../lib/post_data.interface';
 
-import utilStyles from "../../styles/utils.module.scss";
+import utilStyles from '../../styles/utils.module.scss';
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -22,39 +24,53 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
     },
   };
 }
-
-const Post = ({
-  postData,
-}: {
-  postData: {
-    title: string;
-    date: string;
-    contentHtml: string;
-    keywords: [string];
-    author: string;
-    authorLink: string;
-    firstOn: string;
-    draft: boolean;
-    updated: string;
-  };
-}) => {
+const getDomain = (url) => {
+  const regex = /https?:\/\/(?<domain>[A-Za-z0-9-.]+)\/.*/;
+  const matches = url.match(regex);
+  if (matches) {
+    return matches.groups.domain;
+  } else {
+    return null;
+  }
+};
+const Post = ({ postData }: { postData: postData }) => {
   return (
     <Layout>
       <Head>
         <title>{postData.title}</title>
       </Head>
-      <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+      {postData.series ? (
+        <>
+          <h1 className={utilStyles.headingXl}>{postData.series}</h1>
+          <h2>{postData.title}</h2>
+        </>
+      ) : (
+        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+      )}
       <div className={utilStyles.lightText}>
         by <a href={postData.authorLink}>{postData.author}</a>
       </div>
-      {postData.draft && <div className={utilStyles.lightText}><small>Keep in mind this is a draft, make sure to check out later for the final version.</small></div>}
+      {postData.draft && (
+        <div className={utilStyles.lightText}>
+          <small>
+            Keep in mind this is a draft, make sure to check out later for the
+            final version.
+          </small>
+        </div>
+      )}
       <div className={utilStyles.lightText}>
-        <Date dateString={postData.date} />{postData.updated && <span>. Updated on: <Date dateString={postData.updated} /></span>}
+        <Date dateString={postData.date} />
+        {postData.updated && (
+          <span>
+            . Updated on: <Date dateString={postData.updated} />
+          </span>
+        )}
       </div>
       <div className={utilStyles.lightText}>
         {postData.firstOn && (
           <div className={utilStyles.lightText}>
-            First on <a href={postData.firstOn}>{postData.firstOn}</a>
+            Originally published at:{' '}
+            <a href={postData.firstOn}>{getDomain(postData.firstOn)}</a>
           </div>
         )}
         <ul className={utilStyles.keywords}>
@@ -64,7 +80,14 @@ const Post = ({
         </ul>
       </div>
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-      {postData.draft && <div className={utilStyles.lightText}><small>Keep in mind this is a draft, make sure to check out later for the final version.</small></div>}
+      {postData.draft && (
+        <div className={utilStyles.lightText}>
+          <small>
+            Keep in mind this is a draft, make sure to check out later for the
+            final version.
+          </small>
+        </div>
+      )}
     </Layout>
   );
 };

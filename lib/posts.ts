@@ -4,6 +4,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import remark from 'remark';
 import html from 'remark-html';
+import PostData from './post_data.interface';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
@@ -23,15 +24,7 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      ...(matterResult.data as {
-        date: string;
-        title: string;
-        keywords: string;
-        author: string;
-        authorLink: string;
-        firstOn: string;
-        updated: string;
-      }),
+      ...(matterResult.data as PostData),
       keywords,
     };
   });
@@ -75,7 +68,7 @@ export async function getPostData(id: string) {
   return {
     id,
     contentHtml,
-    ...matterResult.data,
+    ...matterResult.data as PostData,
     keywords,
   };
 }

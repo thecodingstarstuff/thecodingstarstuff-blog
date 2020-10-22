@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Date from '../components/date';
 
 import { getSortedPostsData } from '../lib/posts';
+import PostData from '../lib/post_data.interface';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -19,14 +20,7 @@ export default function Home({
   allPostsData,
 }: {
   allPostsData: [
-    {
-      id: string;
-      date: string;
-      title: string;
-      author: string;
-      authorLink: string;
-      draft: boolean;
-    }
+    PostData
   ];
 }) {
   return (
@@ -36,9 +30,9 @@ export default function Home({
       </Head>
       <section className={utilStyles.headingMd}>
         <p>This is a simple blog developed using{' '}
-        <a href="https://nextjs.org/learn/basics/create-nextjs-app">
-          NextJS' tutorial
-        </a>
+        <Link href="https://nextjs.org/learn/basics/create-nextjs-app">
+          <a>NextJS' tutorial</a>
+        </Link>
         . The idea behind this blog is to have a place to group all my guides and
         posts for future reference. But since they may be of use to
         others cruising similar paths as mine I've decided to make it public.</p>
@@ -46,18 +40,18 @@ export default function Home({
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Posts</h2>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title, author, authorLink, draft }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>
-                <a>{title}</a> 
-              </Link> {draft && `(draft)`}
+          {allPostsData.map((postData) => (
+            <li className={utilStyles.listItem} key={postData.id}>
+              <Link href="/posts/[id]" as={`/posts/${postData.id}`}>
+                <a>{postData.title}</a> 
+              </Link> {postData.draft && `(draft)`}
               <br />
               <small className={utilStyles.lightText}>
-                by <a href={authorLink}>{author}</a>
+                by <a href={postData.authorLink}>{postData.author}</a>
               </small>
               <br />
               <small className={utilStyles.lightText}>
-                <Date dateString={date} />
+                <Date dateString={postData.date} />
               </small>
             </li>
           ))}
