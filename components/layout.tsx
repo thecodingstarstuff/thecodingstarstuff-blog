@@ -39,7 +39,7 @@ export default function Layout({
                 <p className={utilStyles.lightText}>
                   "The cosmos is also within us, we're made of star stuff,"
                 </p>
-                <cite>Carl Sagan</cite>
+                <cite><a href="https://en.wikipedia.org/wiki/Carl_Sagan">Carl Sagan</a></cite>
               </blockquote>
             </div>
             <h1 className={utilStyles.heading2Xl}>{siteTitle}</h1>
