@@ -16,26 +16,22 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({
-  allPostsData,
-}: {
-  allPostsData: [
-    PostData
-  ];
-}) {
+export default function Home({ allPostsData }: { allPostsData: [PostData] }) {
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>This is a simple blog developed using{' '}
-        <Link href="https://nextjs.org/learn/basics/create-nextjs-app">
-          <a>NextJS' tutorial</a>
-        </Link>
-        . The idea behind this blog is to have a place to group all my guides and
-        posts for future reference. But since they may be of use to
-        others cruising similar paths as mine I've decided to make it public.</p>
+        <p>
+          This is a simple blog developed using{' '}
+          <Link href="https://nextjs.org/learn/basics/create-nextjs-app">
+            <a>NextJS' tutorial</a>
+          </Link>
+          . The idea behind this blog is to have a place to group all my guides
+          and posts for future reference. But since they may be of use to others
+          cruising similar paths as mine I've decided to make it public.
+        </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Posts</h2>
@@ -43,8 +39,13 @@ export default function Home({
           {allPostsData.map((postData) => (
             <li className={utilStyles.listItem} key={postData.id}>
               <Link href="/posts/[id]" as={`/posts/${postData.id}`}>
-                <a>{postData.title}</a> 
-              </Link> {postData.draft && `(draft)`}
+                <a>
+                  {postData.series
+                    ? `${postData.series}. ${postData.title}`
+                    : postData.title}
+                </a>
+              </Link>{' '}
+              {postData.draft && `(draft)`}
               <br />
               <small className={utilStyles.lightText}>
                 by <a href={postData.authorLink}>{postData.author}</a>
