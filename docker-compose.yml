@@ -1,0 +1,24 @@
+version: "3.3"
+
+services:
+  thecodingstarstuff-blog:
+    image: thecodingstarstuff-blog
+    networks:
+      - traefik-public
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.services.${SERVICE}.loadbalancer.server.port=3000
+        - traefik.http.routers.${SERVICE}-http.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${SERVICE}-http.entrypoints=http
+        - traefik.http.routers.${SERVICE}-http.middlewares=https-redirect
+        - traefik.http.routers.${SERVICE}-https.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${SERVICE}-https.entrypoints=https
+        - traefik.http.routers.${SERVICE}-https.tls=true
+        - traefik.http.routers.${SERVICE}-https.tls.certresolver=le
+
+networks:
+  traefik-public:
+    external: true
