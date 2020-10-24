@@ -16,6 +16,11 @@
         name: docker.pkg.github.com/thecodingstarstuff/thecodingstarstuff-blog/thecodingstarstuff-blog:latest
         source: pull
 
+    - name: Pulling docker image preview
+      docker_image:
+        name: docker.pkg.github.com/thecodingstarstuff/thecodingstarstuff-blog/thecodingstarstuff-blog-preview:latest
+        source: pull
+
     - name: Deploy thecodingstarstuff-blog
       shell: "docker stack deploy -c docker-compose.yml {{ service }}"
       environment:
