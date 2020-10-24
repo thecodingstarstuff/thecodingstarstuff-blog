@@ -11,13 +11,35 @@ services:
         - traefik.docker.network=traefik-public
         - traefik.constraint-label=traefik-public
         - traefik.http.services.${SERVICE}.loadbalancer.server.port=3000
+        - traefik.http.routers.${SERVICE}-http-blog.rule=Host(`blog.${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${SERVICE}-http-blog.entrypoints=http
+        - traefik.http.routers.${SERVICE}-http-blog.middlewares=https-redirect
+        - traefik.http.routers.${SERVICE}-https-blog.rule=Host(`blog.${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${SERVICE}-https-blog.entrypoints=https
+        - traefik.http.routers.${SERVICE}-https-blog.tls=true
+        - traefik.http.routers.${SERVICE}-https-blog.tls.certresolver=le
+        - traefik.http.routers.${SERVICE}-http-www.rule=Host(`www.${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${SERVICE}-http-www.entrypoints=http
+        - traefik.http.routers.${SERVICE}-http-www.middlewares=https-redirect
+        - traefik.http.routers.${SERVICE}-https-www.rule=Host(`www.${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${SERVICE}-https-www.entrypoints=https
+        - traefik.http.routers.${SERVICE}-https-www.middlewares=${SERVICE}-https-www
+        - traefik.http.routers.${SERVICE}-https-www.tls=true
+        - traefik.http.routers.${SERVICE}-https-www.tls.certresolver=le
+        - traefik.http.middlewares.${SERVICE}-https-www.redirectregex.regex=^https?://www.(.*)
+        - traefik.http.middlewares.${SERVICE}-https-www.redirectregex.replacement=https://$${1}
+        - traefik.http.middlewares.${SERVICE}-https-www.redirectregex.permanent=true
         - traefik.http.routers.${SERVICE}-http.rule=Host(`${DOMAIN?Variable not set}`)
         - traefik.http.routers.${SERVICE}-http.entrypoints=http
         - traefik.http.routers.${SERVICE}-http.middlewares=https-redirect
         - traefik.http.routers.${SERVICE}-https.rule=Host(`${DOMAIN?Variable not set}`)
         - traefik.http.routers.${SERVICE}-https.entrypoints=https
+        - traefik.http.routers.${SERVICE}-https.middlewares=${SERVICE}-https
         - traefik.http.routers.${SERVICE}-https.tls=true
         - traefik.http.routers.${SERVICE}-https.tls.certresolver=le
+        - traefik.http.middlewares.${SERVICE}-https.redirectregex.regex=^https?://(.*)
+        - traefik.http.middlewares.${SERVICE}-https.redirectregex.replacement=https://blog.$${1}
+        - traefik.http.middlewares.${SERVICE}-https.redirectregex.permanent=true
 
 networks:
   traefik-public:
