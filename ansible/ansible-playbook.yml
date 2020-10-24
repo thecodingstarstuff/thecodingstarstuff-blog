@@ -1,0 +1,25 @@
+- hosts: master
+  vars:
+    domain: thecodingstarstuff.eu
+    service: thecodingstarstuff-blog
+
+  tasks:
+    - name: Cloning thecodingstarstuff-blog repository
+      git:
+        repo: git@github.com:thecodingstarstuff/thecodingstarstuff-blog.git
+        version: main
+        dest: thecodingstarstuff-blog
+        accept_hostkey: yes
+
+    - name: Pulling docker image
+      docker_image:
+        name: docker.pkg.github.com/thecodingstarstuff/thecodingstarstuff-blog/thecodingstarstuff-blog:latest
+        source: pull
+
+    - name: Deploy thecodingstarstuff-blog
+      shell: "docker stack deploy -c docker-compose.yml {{ service }}"
+      environment:
+        - DOMAIN: "{{ domain }}"
+        - SERVICE: "{{ service }}"
+      args:
+        chdir: $HOME/thecodingstarstuff-blog
