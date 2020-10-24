@@ -1,4 +1,4 @@
-name: build
+name: build-preview
 
 on:
   push:
@@ -15,5 +15,6 @@ jobs:
       - name: Publish Image
         uses: craftech-io/package-action@v3.1.0
         with:
+          image_name: thecodingstarstuff-blog-preview
           tags: latest
           access_token: ${{ secrets.GITHUB_TOKEN }}
