@@ -40,23 +40,23 @@ services:
         - traefik.http.middlewares.${SERVICE}-https.redirectregex.regex=^https?://(.*)
         - traefik.http.middlewares.${SERVICE}-https.redirectregex.replacement=https://blog.$${1}
         - traefik.http.middlewares.${SERVICE}-https.redirectregex.permanent=true
-preview:
-  image: docker.pkg.github.com/thecodingstarstuff/thecodingstarstuff-blog/thecodingstarstuff-blog-preview:latest
-  networks:
-    - traefik-public
-  deploy:
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=traefik-public
-      - traefik.constraint-label=traefik-public
-      - traefik.http.services.${SERVICE}-preview.loadbalancer.server.port=3000
-      - traefik.http.routers.${SERVICE}-preview-http-blog.rule=Host(`preview.blog.${DOMAIN?Variable not set}`)
-      - traefik.http.routers.${SERVICE}-preview-http-blog.entrypoints=http
-      - traefik.http.routers.${SERVICE}-preview-http-blog.middlewares=https-redirect
-      - traefik.http.routers.${SERVICE}-preview-https-blog.rule=Host(`preview.blog.${DOMAIN?Variable not set}`)
-      - traefik.http.routers.${SERVICE}-preview-https-blog.entrypoints=https
-      - traefik.http.routers.${SERVICE}-preview-https-blog.tls=true
-      - traefik.http.routers.${SERVICE}-preview-https-blog.tls.certresolver=le
+  preview:
+    image: docker.pkg.github.com/thecodingstarstuff/thecodingstarstuff-blog/thecodingstarstuff-blog-preview:latest
+    networks:
+      - traefik-public
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.services.${SERVICE}-preview.loadbalancer.server.port=3000
+        - traefik.http.routers.${SERVICE}-preview-http-blog.rule=Host(`preview.blog.${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${SERVICE}-preview-http-blog.entrypoints=http
+        - traefik.http.routers.${SERVICE}-preview-http-blog.middlewares=https-redirect
+        - traefik.http.routers.${SERVICE}-preview-https-blog.rule=Host(`preview.blog.${DOMAIN?Variable not set}`)
+        - traefik.http.routers.${SERVICE}-preview-https-blog.entrypoints=https
+        - traefik.http.routers.${SERVICE}-preview-https-blog.tls=true
+        - traefik.http.routers.${SERVICE}-preview-https-blog.tls.certresolver=le
 networks:
   traefik-public:
     external: true
