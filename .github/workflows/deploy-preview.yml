@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Deploy to Google App Engine
+name: Deploy Blog Preview to Google App Engine
 
 on:
   push:
@@ -21,15 +21,30 @@ on:
 
 jobs:
   setup-build-deploy:
-    name: Deploy
+    name: Deploy Blog Preview
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Build NextJS App
+        run: |
+          yarn
+          yarn build
+
       # Setup and configure gcloud CLI
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - name: Setup gcloud CLI
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '290.0.1'
           project_id: ${{ secrets.PROJECT_ID_PREVIEW }}
