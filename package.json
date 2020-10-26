@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "build": "rm -rf ./build && NODE_ENV=production next build",
-    "start": "next start -p 8080"
+    "start": "next start -p 8080",
+    "deploy": "yarn run build && gcloud app deploy",
+    "dev": "next dev"
   },
   "dependencies": {
     "date-fns": "^2.16.1",
