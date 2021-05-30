@@ -3,6 +3,7 @@ title: The 5 Minute Cluster
 author: Rodrigo E. Gimenez
 authorLink: https://github.com/rodrigoegimenez
 date: "2020-09-29"
+updated: "2021-06-01"
 keywords: docker, ansible, devops
 firstOn: https://dev.to/rodrigoegimenez/the-5-minute-cluster-1oih
 ---

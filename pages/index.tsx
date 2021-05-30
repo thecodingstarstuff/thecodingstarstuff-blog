@@ -42,6 +42,7 @@ export default function Home({ allPostsData }: { allPostsData: [PostData] }) {
               <br />
               <small className={utilStyles.lightText}>
                 <Date dateString={postData.date} />
+                  {postData.updated && <>. Updated on <Date dateString={postData.updated} /></>}
               </small>
             </li>
           ))}
